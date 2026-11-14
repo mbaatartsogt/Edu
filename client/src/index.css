@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== БРЭНДИЙН ӨНГӨ — энд өөрчлөхөд бүх сайт шинэчлэгдэнэ (RGB тоогоор) ===== */
+:root {
+  --c-blue: 10 108 245;      /* #0A6CF5 үндсэн */
+  --c-royal: 20 71 230;      /* #1447E6 гүн цэнхэр */
+  --c-navy: 10 42 122;       /* #0A2A7A footer, админ */
+  --c-sky: 111 178 255;      /* #6FB2FF */
+  --c-mist: 234 243 255;     /* #EAF3FF зөөлөн дэвсгэр */
+  --c-yellow: 246 197 48;    /* #F6C530 */
+  --c-yellow-dark: 201 154 16;
+  --c-coral: 255 106 85;     /* хуанлийн улаан */
+  --c-mint: 46 196 140;      /* амжилт */
+  --c-ink: 11 31 77;         /* үндсэн текст */
+  --c-ink-soft: 74 91 130;
+  --c-line: 214 228 250;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-white font-sans text-ink antialiased; overflow-x: hidden; }
+  h1, h2, h3 { text-wrap: balance; }
+  :focus-visible { outline: 3px solid rgb(var(--c-yellow)); outline-offset: 3px; border-radius: 8px; }
+  ::selection { background: rgb(var(--c-yellow)); color: rgb(var(--c-ink)); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-wrap;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  .band { @apply relative overflow-hidden py-16 md:py-24 lg:py-28; }
+
+  /* Graph-paper торон дэвсгэр */
+  .bg-grid-blue {
+    background-color: rgb(var(--c-blue));
+    background-image:
+      linear-gradient(rgb(255 255 255 / .13) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / .13) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .bg-grid-soft {
+    background-color: rgb(var(--c-mist));
+    background-image:
+      linear-gradient(rgb(var(--c-blue) / .07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--c-blue) / .07) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-xs font-extrabold uppercase tracking-[.16em] text-brand-blue;
+  }
+  .eyebrow::before { content: ""; @apply h-5 w-5 rounded-md bg-brand-yellow; }
+
+  .h-display { @apply text-[clamp(2.6rem,6.4vw,5rem)] font-extralight leading-[1.05] tracking-tight; }
+  .h2 { @apply text-[clamp(2rem,4.2vw,3.2rem)] font-light leading-[1.1] tracking-tight; }
+  .lead { @apply max-w-[60ch] text-base text-ink-soft md:text-lg; }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-4 text-sm font-extrabold uppercase
+      tracking-[.08em] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-60;
+  }
+  .btn-yellow { @apply btn bg-brand-yellow text-ink shadow-btn; }
+  .btn-blue { @apply btn bg-brand-blue text-white shadow-glow hover:bg-brand-royal; }
+  .btn-white { @apply btn bg-white text-brand-blue shadow-card; }
+
+  .card { @apply rounded-4xl border border-line bg-white; }
+  .input {
+    @apply w-full rounded-2xl border-2 border-transparent bg-brand-mist px-4 py-3.5 font-medium text-ink outline-none
+      transition placeholder:text-ink-soft/60 focus:border-brand-blue focus:bg-white;
+  }
+  .input-error { @apply border-red-600; }
+
+  /* 3D глянцан иконы суурь */
+  .icon3d {
+    @apply grid h-14 w-14 place-items-center rounded-[18px];
+    background: linear-gradient(160deg, #fff, #d9e8ff);
+    box-shadow: 0 6px 0 #9dbdf0, 0 12px 22px -8px rgb(0 0 0 / .4);
+  }
+  .icon3d-y {
+    @apply icon3d;
+    background: linear-gradient(160deg, #ffe58a, rgb(var(--c-yellow)));
+    box-shadow: 0 6px 0 rgb(var(--c-yellow-dark)), 0 12px 22px -8px rgb(0 0 0 / .4);
+  }
+  .check3d {
+    @apply grid h-9 w-9 shrink-0 place-items-center rounded-[10px];
+    background: linear-gradient(160deg, rgb(var(--c-sky)), rgb(var(--c-blue)) 60%, rgb(var(--c-royal)));
+    box-shadow: 0 4px 0 #0b3fb8, 0 8px 14px -6px rgb(var(--c-blue) / .7);
+  }
+}
+
+/* ===== Баярын загварууд — админ → Холбоос, тохиргоо → Сайтын загвар ===== */
+:root[data-season="christmas"] {
+  --c-blue: 200 16 46; --c-royal: 139 10 30; --c-navy: 16 70 45; --c-sky: 255 138 128;
+  --c-mist: 255 242 240; --c-yellow: 246 197 48; --c-yellow-dark: 201 154 16; --c-line: 248 214 214;
+}
+:root[data-season="newyear"] {
+  --c-blue: 76 52 214; --c-royal: 44 26 150; --c-navy: 18 11 61; --c-sky: 160 145 255;
+  --c-mist: 243 240 255; --c-yellow: 246 197 48; --c-yellow-dark: 201 154 16; --c-line: 224 218 250;
+}
+:root[data-season="tsagaansar"] {
+  --c-blue: 21 101 192; --c-royal: 13 60 140; --c-navy: 10 35 80; --c-sky: 127 179 240;
+  --c-mist: 238 245 255; --c-yellow: 224 168 0; --c-yellow-dark: 170 125 0;
+}
+:root[data-season="naadam"] {
+  --c-blue: 0 102 179; --c-royal: 218 32 50; --c-navy: 10 45 100; --c-sky: 110 175 235;
+  --c-mist: 238 245 255; --c-yellow: 255 209 0; --c-yellow-dark: 200 160 0;
+}
+
+@keyframes bulb-blink { 0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px currentColor); } 50% { opacity: .35; filter: none; } }
+@keyframes twinkle { 0%, 100% { opacity: .15; transform: scale(.6) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(20deg); } }
+@keyframes swing { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .season-anim { animation: none !important; }
+}

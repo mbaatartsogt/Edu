@@ -1,0 +1,15 @@
+# Локал PostgreSQL: docker compose up -d
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mindedu
+      POSTGRES_PASSWORD: mindedu
+      POSTGRES_DB: mindedu
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

@@ -1,0 +1,19 @@
+{
+  "name": "mindedu",
+  "private": true,
+  "version": "1.0.0",
+  "description": "MindEdu англи хэлний сургалтын төв — landing + admin panel",
+  "scripts": {
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n server,client -c blue,yellow \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "build": "npm --prefix client run build",
+    "render-build": "npm --prefix server install --omit=dev && npm --prefix client install --include=dev && npm --prefix client run build",
+    "start": "npm --prefix server start"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

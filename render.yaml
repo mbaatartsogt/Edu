@@ -1,0 +1,35 @@
+# Render Blueprint — Render → New → Blueprint → энэ repo-г сонгоход автоматаар тохирно.
+# Өгөгдлийн сан: Neon.tech (үнэгүй, хугацаагүй). DEPLOY.md-г үзнэ үү.
+services:
+  - type: web
+    name: mindedu
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm run render-build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL          # Neon-ээс хуулсан connection string
+        sync: false
+      - key: PGSSL
+        value: "true"
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD        # Админы нууц үг — өөрөө зохиож оруулна
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: QPAY_MODE             # жинхэнэ төлбөр авах үед live болгоно
+        value: demo
+      - key: SHOW_DEV_CODES        # SMS/и-мэйл тохируулаагүй үед бүртгэлийн кодыг дэлгэцэнд харуулна
+        value: "true"
+      - key: PUBLIC_URL            # жишээ: https://mindedu.onrender.com
+        sync: false
+      - key: APP_URL               # PUBLIC_URL-тай ижил
+        sync: false
